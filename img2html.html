@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>img2html</title>
+</head>
+
+<body>
+<input id="inp" type='file'> <br>
+<textarea id="b64" style="background:#333;color:#fff;width:175px;height:150px;border:2px solid #999" readonly></textarea> <br>
+<button>Copy</button><br>
+<a id="aa" href="" download="image.html">Download</a><br>
+<img id="img" height="150">
+<script>
+
+const aa = document.getElementById("aa")
+
+function readFile() {
+    if (this.files && this.files[0]) {
+        var FR = new FileReader();
+        FR.addEventListener("load", function(e) {
+            document.getElementById("img").src = e.target.result;
+        	document.getElementById("b64").value = e.target.result;
+            aa.href= URL.createObjectURL(new Blob(["<img src='"+e.target.result+"'>"], {type: "text/html;charset=utf-8"})) 
+        });
+        FR.readAsDataURL(this.files[0]);
+    }
+}
+document.getElementById("inp").addEventListener("change", readFile);
+</script>
+</body>
+<style>
+    body{
+    background: #000;
+    color:#fff;
+  }
+  button{
+    width:150px;
+    height:30px;
+    color:#fff;
+    background:#333;
+    border: 2px solid #fff;
+    border-radius:10px;
+  }
+  a:link {
+    color:#0af;
+  }
+  a:visited {
+    color:#0fa;
+  }
+</style>
+</html>
