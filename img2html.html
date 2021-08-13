@@ -12,23 +12,54 @@
 <textarea id="b64" style="background:#333;color:#fff;width:175px;height:150px;border:2px solid #999" readonly></textarea> <br>
 <button>Copy</button><br>
 <a id="aa" href="" download="image.html">Download</a><br>
-<img id="img" height="150">
+<input type="checkbox" id="cb" name="cb" onchange="showB=!showB"><label for="cb">Show base64 output (might lag)</label><br>
+<select id="sel">
+  <option value="i">Image</option>
+  <option value="a">Audio</option>
+  <option value="v">Video</option>
+  <option value="t">Text</option>
+</select>
+<!--<img id="img" height="150">-->
 <script>
 
 const aa = document.getElementById("aa")
-
+const cb = document.getElementById("cb")
+const se = document.getElementById("sel")
+var showB = false
 function readFile() {
     if (this.files && this.files[0]) {
         var FR = new FileReader();
         FR.addEventListener("load", function(e) {
-            document.getElementById("img").src = e.target.result;
-        	document.getElementById("b64").value = e.target.result;
-            aa.href= URL.createObjectURL(new Blob(["<img src='"+e.target.result+"'>"], {type: "text/html;charset=utf-8"})) 
+          //document.getElementById("img").src = e.target.result;
+          if(showB) {
+        	  document.getElementById("b64").value = e.target.result;
+          }
+          var etr = e.target.result
+          let typeS; let typeE;
+          switch (se.value) {
+            case "i":
+              typeS= "<img src='"
+              typeE= "'>"
+              break
+            case "a":
+              typeS= "<audio controls><source src=\'"
+              typeE="\'type=\'"+etr.substr(5,etr.length-12)+"\'></audio>"
+              break
+            case "v":
+              typeS="<video height=\'300px\' width=\'530px\' controls><source src=\'"
+              typeE="\'type=\'"+etr.substr(5,etr.length-12)+"\'></video>"
+              break
+            case "t":
+              break
+          }
+          console.log(typeS+e.target.result+typeE)
+            aa.href= URL.createObjectURL(new Blob([typeS+etr+typeE], {type: "text/html;charset=utf-8"}))
         });
         FR.readAsDataURL(this.files[0]);
     }
 }
 document.getElementById("inp").addEventListener("change", readFile);
+//var d = "data:text/plain;base64" d.substr(5, d.length - 12)
 </script>
 </body>
 <style>
@@ -36,7 +67,7 @@ document.getElementById("inp").addEventListener("change", readFile);
     background: #000;
     color:#fff;
   }
-  button{
+  button, select{
     width:150px;
     height:30px;
     color:#fff;
