@@ -12,7 +12,7 @@
 <input id="inp" type='file'> <br>
 <a id="aa" href="" download="file.html"></a><br>
 <input type="checkbox" id="cb" name="cb" onchange="sB64()"><label for="cb">Show base64 output (might lag)</label><br>
-<textarea id="b64" style="background:#333;color:#fff;width:175px;height:150px;border:2px solid #999;visibility:hidden" readonly></textarea>
+<textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="b64" style="background:#333;color:#fff;width:175px;height:150px;border:2px solid #999;visibility:hidden" readonly></textarea>
 <!--<select id="sel">
   <option value="i">Image</option>
   <option value="a">Audio</option>
@@ -60,7 +60,7 @@ function readFile() {
             case "t":
               break
           }
-          let name=Math.round(Math.random()*10000)+".html"
+          let name=Math.round(Math.random()*1000000)+".html"
           aa.download=name
           aa.innerHTML="Created file: "+name
           console.log(mime)
