@@ -42,25 +42,32 @@ function readFile() {
         var FR = new FileReader();
         FR.addEventListener("load", function(e) {
           //document.getElementById("img").src = e.target.result;
+
           if(showB) {
         	  document.getElementById("b64").value = e.target.result;
           }
           var etr = e.target.result
           let typeS; let mime= etr.slice(5, etr.indexOf(";"))
+          let typeF;
           switch (etr.substr(5,1)) {
             case "i":
               typeS= "<img src='"+etr+"'>"
+              typeF= "img"
               break
             case "a":
               typeS= "<audio controls><source src=\'"+etr+"\'type=\'"+mime+"\'></audio>"
+              typeF= "aud"
               break
             case "v":
               typeS="<video height=\'300px\' width=\'530px\' controls><source src=\'"+etr+"\'type=\'"+mime+"\'></video>"
+              typeF= "vid"
               break
             case "t":
+              typeF= "txt"
+              alert("Conversion of text files not implemented yet")
               break
           }
-          let name=Math.round(Math.random()*1000000)+".html"
+          let name=typeF+Math.round(Math.random()*1000000)+".html"
           aa.download=name
           aa.innerHTML="Created file: "+name
           console.log(mime)
