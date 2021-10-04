@@ -49,23 +49,25 @@ function readFile() {
           var etr = e.target.result
           let typeS; let mime= etr.slice(5, etr.indexOf(";"))
           let typeF;
-          switch (etr.substr(5,1)) {
-            case "i":
+          switch (etr.substr(5,2)) {
+            case "im":
               typeS= "<img src='"+etr+"'>"
               typeF= "img"
               break
-            case "a":
+            case "au":
               typeS= "<audio controls><source src=\'"+etr+"\'type=\'"+mime+"\'></audio>"
               typeF= "aud"
               break
-            case "v":
+            case "vi":
               typeS="<video height=\'300px\' width=\'530px\' controls><source src=\'"+etr+"\'type=\'"+mime+"\'></video>"
               typeF= "vid"
               break
-            case "t":
+            case "te":
               typeF= "txt"
               alert("Conversion of text files not implemented yet")
               break
+              default:
+              alert("Not supported")
           }
           let name=typeF+Math.round(Math.random()*1000000)+".html"
           aa.download=name
