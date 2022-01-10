@@ -9,10 +9,12 @@
 </head>
 
 <body>
+  <h2 align="center">2htm</h2>
 <input id="inp" type='file'> <br>
-<a id="aa" href="" download="file.html"></a><br>
-<input type="checkbox" id="cb" name="cb" onchange="sB64()"><label for="cb">Show base64 output (might lag)</label><br>
-<textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="b64" style="background:#333;color:#fff;width:175px;height:150px;border:2px solid #999;visibility:hidden" readonly></textarea>
+<a id="aa" href="" download="file.html"></a><br><br>
+<button onclick="navigator.clipboard.writeText(etr)">Copy base64 output</button><br>
+<input type="checkbox" id="cb" name="cb" onchange="sB64()"><label for="cb">Show base64 output (might lag or crash)</label><br>
+<textarea autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="b64" style="background:#333;color:#fff;width:100%;height:60vh;border:2px solid #999;visibility:hidden" readonly></textarea>
 <!--<select id="sel">
   <option value="i">Image</option>
   <option value="a">Audio</option>
@@ -25,8 +27,9 @@
 const ta = document.getElementById("b64")
 const aa = document.getElementById("aa")
 const cb = document.getElementById("cb")
-const se = document.getElementById("sel")
+//const se = document.getElementById("sel")
 var showB = false
+var etr = ""
 
 function sB64() {
   showB= !showB
@@ -46,7 +49,7 @@ function readFile() {
           if(showB) {
         	  document.getElementById("b64").value = e.target.result;
           }
-          var etr = e.target.result
+          etr = e.target.result
           let typeS; let mime= etr.slice(5, etr.indexOf(";"))
           let typeF;
           switch (etr.substr(5,2)) {
@@ -86,7 +89,8 @@ document.getElementById("inp").addEventListener("change", readFile);
     body{
     background: #000;
     color:#fff;
-    font-size:20px
+    font-size:17px;
+    margin: 15px;
   }
   input {
     font-size: 18px
@@ -96,7 +100,7 @@ document.getElementById("inp").addEventListener("change", readFile);
     height:30px;
     color:#fff;
     background:#333;
-    border: 2px solid #fff;
+    border: 2px solid #777;
     border-radius:10px;
   }
   a:link {
